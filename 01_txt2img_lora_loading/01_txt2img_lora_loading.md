@@ -1,4 +1,5 @@
 
+[Also see: Batch Rendering multiple images at once](#batch-rendering-multiple-images)
 
 # Prequisite LoRa models
 
@@ -45,7 +46,7 @@ Reference loras:
 - Hit Run (top RHS) to generate the image.
 
 
-## Tweaking for multiple images
+## Batch rendering multiple images
 
 - For when you want the model to produce multiple images at a time.
 
