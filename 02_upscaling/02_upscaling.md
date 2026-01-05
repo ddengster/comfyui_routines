@@ -15,3 +15,4 @@ Example: [Gimp AI Upscaler Plugin](https://github.com/Nenotriple/gimp_upscale)
 
 ![](flow.PNG)
 
+- Alternatively, there is an option for "Upscale Image (using Model)", but you have to search for your own models
