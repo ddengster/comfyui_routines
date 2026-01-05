@@ -24,7 +24,7 @@ Reference loras:
 
 - You should see have a workflow of nodes. Install any required model. You may do a test run.
 
-![](hl1.PNG)
+![](h1.PNG)
 
 ## Loading Lora node 
 
