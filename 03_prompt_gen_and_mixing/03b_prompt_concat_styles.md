@@ -7,7 +7,7 @@
 
 ![](styles_selector.PNG)
 
-- Expand the box. You can search for various styles to use. Click on them to toggle their checkboxes.
+- Expand the `Styles Selector`'s box. You can search for various styles to use. Click on them to toggle their checkboxes.
 
 - If you mouseover each box, you will note that there are positive and negative prompts. These will be plugged into prompt nodes.
 
