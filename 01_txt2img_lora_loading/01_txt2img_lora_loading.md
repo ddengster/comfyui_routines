@@ -56,7 +56,7 @@ Reference loras:
 
 ![](latent_tweak.PNG)
 
-- Sometimes you may want output a number of differents images. The solution is to put Wildcards in your prompts eg. `{tree|rock|mushroom}`, and the increase the Batch Count as stated below.
+- Sometimes you may want output a number of different images with different prompts. The solution is to put Wildcards in your prompts eg. `{tree|rock|mushroom}`, and the increase the Batch Count as stated below, then hit Run.
 
 ![](multiple_batches.PNG)
 
