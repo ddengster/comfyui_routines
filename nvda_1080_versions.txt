@@ -1,0 +1,8 @@
+If you do a fresh image generation workflow, run it, and get errors about "no kernel image is available" with "CUDA_LAUNCH_BLOCKING=1", 
+your pytorch is likely incompatible. Open the console (bottom LHS bar), click TERMINAL and `pip show torch`. If it's version 2.8.0, it is incompatible.
+
+Likely solution is this:
+
+pip install torch==2.7.1 torchvision==0.22.1 torchaudio==2.7.1 --index-url https://download.pytorch.org/whl/cu126
+
+then restart comfyui
