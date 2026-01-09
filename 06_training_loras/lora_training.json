@@ -1,0 +1,525 @@
+{
+  "id": "77e120ea-7e85-486c-99df-180eee087125",
+  "revision": 0,
+  "last_node_id": 19,
+  "last_link_id": 21,
+  "nodes": [
+    {
+      "id": 14,
+      "type": "LoadImagesFromFolderKJ",
+      "pos": [
+        29.3077768183896,
+        1067.227043964628
+      ],
+      "size": [
+        299.2154296875,
+        262
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            14
+          ]
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "image_path",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImagesFromFolderKJ"
+      },
+      "widgets_values": [
+        "C:\\Users\\ddengster\\Desktop\\comfyui_routines\\comfyui_routines\\06_training_loras\\training_img",
+        256,
+        256,
+        "crop",
+        0,
+        0,
+        false
+      ]
+    },
+    {
+      "id": 16,
+      "type": "VAEEncode",
+      "pos": [
+        584.2964027815938,
+        1046.5344801183933
+      ],
+      "size": [
+        140,
+        46
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 14
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 13,
+      "type": "LoadImageDataSetFromFolder",
+      "pos": [
+        4.663132924530029,
+        908.7814252660172
+      ],
+      "size": [
+        312.1490234375,
+        58
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "images",
+          "shape": 6,
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImageDataSetFromFolder"
+      },
+      "widgets_values": [
+        "clipspace"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        375.9468299999998,
+        835.5996945454544
+      ],
+      "size": [
+        422.84503173828125,
+        164.31304931640625
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            17
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "fireball"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        13.368810000000018,
+        743.9534199999999
+      ],
+      "size": [
+        315,
+        98
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            10
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 1,
+          "links": [
+            3
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 2,
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "v1-5-pruned-emaonly-fp16.safetensors"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "SaveLoRA",
+      "pos": [
+        1362.5948945997752,
+        796.7160137547572
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "lora",
+          "type": "LORA_MODEL",
+          "link": 18
+        },
+        {
+          "name": "steps",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": 19
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveLoRA"
+      },
+      "widgets_values": [
+        "loras/fireballs_lora",
+        0
+      ]
+    },
+    {
+      "id": 18,
+      "type": "LossGraphNode",
+      "pos": [
+        1363.3056384014283,
+        939.5251046638483
+      ],
+      "size": [
+        270,
+        270
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "loss",
+          "type": "LOSS_MAP",
+          "link": 20
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "LossGraphNode"
+      },
+      "widgets_values": [
+        "loss_graph"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "Note",
+      "pos": [
+        999.6079786382719,
+        452.3043979187461
+      ],
+      "size": [
+        606.4000000000001,
+        259.1
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "YT comments:\n\n\"Loss essentially means how well your model is doing. It is a function basically measuring how different the image your model generated is from the examples.  A lower value is better. As you fine tune the  model, you expect the loss to decrease over each step. You want that loss graph to be line trending down from left to right. If it is jumping around all over the place, as shown in this video, chances are it is not really learning anything.\"\n\n\"For a character lora, you'll do better with at least 2000 steps. Some people go as high as about 10,000 steps. It'll keep improving (Loss graph will always be noisy, but it should trend lower) until the model is saturated with data. Then the loss graph will trend back up higher as the LoRa becomes over-trained. If you test an over-trained model, you'll usually get a 'burned' effect, where everything seems too high contrast, and the model stops listening the the prompt. It'll always output a very similar image of your character no mater what you enter as a prompt if you go way too far.\nThe prompt is being used as the reference file for the images. You should include your trigger word (Which you did), and then create tags for every detail in the image other than the permanent aspects of the character that you want the lora to train. So, if want to be able to change the character hairstyle, be sure to include a tag for the character hairstyle when you train the model. Do not include details about nose shape or freckles, since you want your trigger word to create those details. \nThe sticky bit is that each image should have its own prompt, and there doesn't appear to be any way to enter a unique prompt for each image.\nAlso, connecting the 'model' output of the 'Load_Lora' node to the Negative Prompt tells ComfyUI to avoid the details in the LoRa. You are adding the LoRa weights with the prompt, and then subtracting the LoRa weights with the Negative Prompt. Just leave the Negative Prompt connected directly to the 'Load Model' node.\""
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 10,
+      "type": "TrainLoraNode",
+      "pos": [
+        923,
+        785
+      ],
+      "size": [
+        307.642578125,
+        454
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 10
+        },
+        {
+          "name": "latents",
+          "type": "LATENT",
+          "link": 15
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "lora",
+          "type": "LORA_MODEL",
+          "links": [
+            18
+          ]
+        },
+        {
+          "name": "loss_map",
+          "type": "LOSS_MAP",
+          "links": [
+            20
+          ]
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TrainLoraNode"
+      },
+      "widgets_values": [
+        1,
+        1,
+        640,
+        0.0005,
+        8,
+        "AdamW",
+        "MSE",
+        709381193404004,
+        "randomize",
+        "bf16",
+        "bf16",
+        "LoRA",
+        true,
+        "[None]",
+        false
+      ]
+    },
+    {
+      "id": 15,
+      "type": "PreviewImage",
+      "pos": [
+        440.64586226958204,
+        1286.7876800364315
+      ],
+      "size": [
+        140,
+        246
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 12,
+      "type": "Note",
+      "pos": [
+        380.5810184297526,
+        566.624415123967
+      ],
+      "size": [
+        507.00950000000023,
+        203.09680000000003
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "# Lora training\n\nReference video: https://www.youtube.com/watch?v=DW9pyLH1u-8\n\nSet steps to 16 for beta testing, 640+ for real production\n\nlora files are located in ComfyUI/output/loras"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      3,
+      4,
+      1,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      10,
+      4,
+      0,
+      10,
+      0,
+      "MODEL"
+    ],
+    [
+      14,
+      14,
+      0,
+      16,
+      0,
+      "IMAGE"
+    ],
+    [
+      15,
+      16,
+      0,
+      10,
+      1,
+      "LATENT"
+    ],
+    [
+      17,
+      6,
+      0,
+      10,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      18,
+      10,
+      1,
+      17,
+      0,
+      "LORA_MODEL"
+    ],
+    [
+      19,
+      10,
+      3,
+      17,
+      1,
+      "INT"
+    ],
+    [
+      20,
+      10,
+      2,
+      18,
+      0,
+      "LOSS_MAP"
+    ],
+    [
+      21,
+      4,
+      2,
+      16,
+      1,
+      "VAE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5644739300537773,
+      "offset": [
+        1048.9218255213484,
+        269.91048570197773
+      ]
+    },
+    "workflowRendererVersion": "LG",
+    "frontendVersion": "1.34.9"
+  },
+  "version": 0.4
+}
